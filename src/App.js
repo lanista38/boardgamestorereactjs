@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
 import PropTypes from 'prop-types';
-// import List from '@material-ui/core/List';
 import Card from '@material-ui/core/Card';
-// import CardActionArea from '@material-ui/core/CardActionArea';
-// import CardActions from '@material-ui/core/CardActions';
-// import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -21,6 +15,80 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
+import BoardGameCard from './components/BoardGameCard';
+import BoardGameAppBar from './components/BoardGameAppBar';
+
+
+
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+
+  PrimaryColor:{
+    backgroundColor: '#ff6d60'
+  },
+  gridContainer: {
+   paddingTop: 45,
+  },
+});
+
+
+
+
+class App extends Component {
+
+  constructor() {
+  super();
+
+  this.state = {
+    posts: {}
+  }
+}
+componentWillMount() {
+  this.setState({
+    posts: PostsData
+  });
+}
+  state = {
+    spacing: '16',
+  };
+
+
+  handleChange = key => (event, value) => {
+    this.setState({
+      [key]: value,
+    });
+  };
+
+  render() {
+    const { classes } = this.props;
+    const { spacing } = this.state;
+
+    return (
+      <div className={classes.root} >
+      < BoardGameAppBar classes = {this.props.classes}>
+      </BoardGameAppBar>
+      <Grid container className={classes.gridContainer} spacing={16}>
+
+        <Grid item xs={12}>
+          <Grid container justify="center" spacing={Number(spacing)}>
+          {
+          Object
+          .keys(this.state.posts)
+          .map(key => (
+            <BoardGameCard  key={key} index={key} details={this.state.posts[key]}/>
+        ))}
+          </Grid>
+
+        </Grid>
+
+      </Grid>
+      </div>
+    );
+  }
+}
 
 const PostsData = [
   {
@@ -73,146 +141,6 @@ const PostsData = [
   },
 ]
 
-
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-
-  PrimaryColor:{
-    backgroundColor: '#ff6d60'
-  },
-  gridContainer: {
-   paddingTop: 45,
-  },
-  gridItem:{
-    padding: 40
-  },
-
-  control: {
-    padding: theme.spacing.unit * 2,
-  },
-  grow: {
-    flexGrow: 0,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  card: {
-   minWidth: 250,
-   maxWidth: 220,
-   minHeight: 220,
-   maxHeight:220
-
- },
-BoardGameCardTextDiv:{
-    paddingTop:5,
-    padding: 10,
-},
-
- pos: {
-   marginBottom: 12,
- },
- media: {
-  height: 100,
-},
-catChip:{
-  height: 14,
-  fontSize:10,
-},
-DetailsList:{
- display: 'flex',
-
-},
-DetailsListItem:{
-  paddingLeft: 5,
-},
-});
-
-class App extends Component {
-
-  constructor() {
-  super();
-
-  this.state = {
-    posts: {}
-  }
-}
-componentWillMount() {
-  this.setState({
-    posts: PostsData
-  });
-}
-  state = {
-    spacing: '16',
-  };
-
-
-  handleChange = key => (event, value) => {
-    this.setState({
-      [key]: value,
-    });
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { spacing } = this.state;
-
-    return (
-      <div className={classes.root} >
-      <AppBar className={classes.PrimaryColor} position="static">
-        <Toolbar>
-          <IconButton className={classes.menuButton} aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.grow}>
-          The Gaming Pit
-          </Typography>
-          <Button >Login</Button>
-        </Toolbar>
-      </AppBar>
-      <Grid container className={classes.gridContainer} spacing={16}>
-
-        <Grid item xs={12}>
-          <Grid container justify="center" spacing={Number(spacing)}>
-          {
-          Object
-          .keys(this.state.posts)
-          .map(key => (
-              <Grid className={classes.gridItem} key={key} index={key}  item>
-                <Card className={classes.card} details={this.state.posts[key]}>
-
-                    <CardMedia
-                      className={classes.media}
-                      image={this.state.posts[key].image}
-                      title="Game Thumbnail"/>
-                      <div className={classes.BoardGameCardDetailsDiv}>
-                      <div className={classes.DetailsList}>
-                        <div className={classes.DetailsListItem}><Chip className={classes.catChip} color="primary"  label= {this.state.posts[key].category} variant="outlined"></Chip></div>
-                        <div className={classes.DetailsListItem}><Typography variant="caption">{this.state.posts[key].playtime} min</Typography></div>
-                        <div className={classes.DetailsListItem}><Typography variant="caption">{this.state.posts[key].playercount} players</Typography></div>
-                      </div>
-
-                      </div>
-                    <div className={classes.BoardGameCardTextDiv}>
-                      <Typography className={classes.BoardGameCardTitle} variant="h6">{this.state.posts[key].title}</Typography>
-                      <Typography className={classes.BoardGameCardDescription} variant="body2">{this.state.posts[key].publisher}</Typography>
-                    </div>
-
-                </Card>
-              </Grid>
-        ))}
-          </Grid>
-
-        </Grid>
-
-      </Grid>
-      </div>
-    );
-  }
-}
 
 
 App.propTypes = {
