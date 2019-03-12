@@ -38,8 +38,8 @@ const styles = theme => ({
    minWidth: 250,
    maxWidth: 220,
    minHeight: 220,
-   maxHeight:220
-
+   maxHeight:220,
+   BackgroundColor: '#ff6659'
  },
 BoardGameCardTextDiv:{
     paddingTop:5,

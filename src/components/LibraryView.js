@@ -10,27 +10,18 @@ import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
 import MenuIcon from '@material-ui/icons/Menu';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
+import BoardGameCard from './BoardGameCard';
+import BoardGameAppBar from './BoardGameAppBar';
 
 const styles = theme => ({
 
 })
-
-const PostsData = [
-  {
-    "category": "Area Control",
-    "title": "Inis",
-    "publisher": "CMON Games",
-    "playtime": "90",
-    "playercount": "4",
-    "image": "https://cf.geekdo-images.com/imagepage/img/c6vFqiWZr3ix-2rMkUA0idcaOfk=/fit-in/900x600/filters:no_upscale()/pic3112623.jpg"
-  },
-]
-
 
 class LibraryView extends Component {
   constructor() {
@@ -63,7 +54,11 @@ componentWillMount() {
         <div className={classes.root} >
         < BoardGameAppBar classes = {this.props.classes}>
         </BoardGameAppBar>
-        <
+        <Paper>
+          <Avatar alt="Remy Sharp" src="" className={classes.bigAvatar} />
+          <Typography> Welcome to your Library {UserData.name}! </Typography>
+
+        </Paper>
         <Grid container className={classes.gridContainer} spacing={16}>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={Number(spacing)}>

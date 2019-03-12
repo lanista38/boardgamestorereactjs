@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router, Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
@@ -17,18 +18,16 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import BoardGameCard from './components/BoardGameCard';
 import BoardGameAppBar from './components/BoardGameAppBar';
-
+import Backgroundfetch from './components/Backgroundfetch';
 
 
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    backgroundColor: '#29434e',
   },
 
-  PrimaryColor:{
-    backgroundColor: '#ff6d60'
-  },
   gridContainer: {
    paddingTop: 45,
   },
@@ -67,25 +66,28 @@ componentWillMount() {
     const { spacing } = this.state;
 
     return (
-      <div className={classes.root} >
-      < BoardGameAppBar classes = {this.props.classes}>
-      </BoardGameAppBar>
-      <Grid container className={classes.gridContainer} spacing={16}>
+      <Router>
+        <div className={classes.root} >
+        < BoardGameAppBar classes = {this.props.classes}>
+        </BoardGameAppBar>
 
-        <Grid item xs={12}>
-          <Grid container justify="center" spacing={Number(spacing)}>
-          {
-          Object
-          .keys(this.state.posts)
-          .map(key => (
-            <BoardGameCard  key={key} index={key} details={this.state.posts[key]}/>
-        ))}
+          <Backgroundfetch> </Backgroundfetch>
+
+        <Grid container className={classes.gridContainer} spacing={16}>
+
+          <Grid item xs={12}>
+            <Grid container justify="center" spacing={16}>
+            {
+            Object
+            .keys(this.state.posts)
+            .map(key => (
+              <BoardGameCard  key={key} index={key} details={this.state.posts[key]}/>
+          ))}
+            </Grid>
           </Grid>
-
         </Grid>
-
-      </Grid>
-      </div>
+        </div>
+      </Router>
     );
   }
 }
