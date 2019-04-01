@@ -24,8 +24,8 @@ const styles = theme => ({
   gridItem:{
     padding: 40
   },
-  purchaseButton:{
-    color: '#e53635'
+  purchaseButtonsize:{
+    backgroundColor: '#ff8f00'
   },
   control: {
     padding: theme.spacing.unit * 2,
@@ -108,7 +108,7 @@ class BoardGameCard extends Component {
                     </div>
                     </CardActionArea>
                     <CardActions>
-                      <Button variant="contained" className={classes.purchaseButtonsize} size="small" color="primary">
+                      <Button variant="contained" className={classes.purchaseButtonsize} size="small" >
                         Purchase
                       </Button>
                       <Typography align="right" variant="body2"> X in Stock</Typography>

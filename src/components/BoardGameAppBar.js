@@ -29,7 +29,7 @@ const styles = theme => ({
   flexGrow: 1,
 },
   PrimaryColor:{
-    backgroundColor: '#ff8f00'
+    backgroundColor: '#c56000'
   },
   menuButton: {
   marginLeft: -12,
@@ -69,13 +69,13 @@ function Home() {
              <MenuIcon />
            </IconButton>
 
-           <Typography variant="h6" color="inherit"  className={classes.grow}>
-        <Link  to="/">   The Gaming Pit</Link>
+           <Typography variant="h6"  className={classes.grow}>
+           <Link  to="/">   The Gaming Pit</Link>
            </Typography>
 
            <Link color="inherit" to="/user">
 
-           <IconButton   aria-label="Account">
+           <IconButton color="inherit"  aria-label="Account">
            <LibraryIcon />
 
            </IconButton>  </Link>

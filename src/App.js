@@ -25,7 +25,7 @@ import Backgroundfetch from './components/Backgroundfetch';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#c56000',
+    
   },
 
   gridContainer: {

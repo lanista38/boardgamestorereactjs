@@ -21,13 +21,19 @@ import BoardGameAppBar from './BoardGameAppBar';
 
 
 const styles = theme => ({
-  userdetails:{
-    padding: 10,
-    margin: 'auto',
+  userdetailsContainer:{
+    padding: 15,
+    margin: 40,
     maxWidth: 500,
+    minWidth: 200,
+    minHeight: 300,
+    backgroundColor: '#ff8f00',
   },
   gridContainer:{
 
+  },
+  userdetailsText:{
+    paddingTop: 10,
   },
 })
 
@@ -62,11 +68,11 @@ componentWillMount() {
         <div >
           <Grid  container direction="row" justify="flex-start" spacing={24}>
             <Grid item  xs ={4} >
-              <Paper className="userdetails" >
+              <Paper className={classes.userdetailsContainer} >
                 <Avatar alt="Remy Sharp" src="" className={classes.bigAvatar} />
-                <Typography> Welcome to your Library {UserData.name}! </Typography>
-                <Typography>  X titles in your library </Typography>
-                <Typography> X friends {UserData.name}! </Typography>
+                <Typography variant="h6" className={classes.userdetailsText}> Welcome to your Library {UserData.name}! </Typography>
+                <Typography variant="h6" className={classes.userdetailsText}>  X titles in your library </Typography>
+                <Typography variant="h6" className={classes.userdetailsText}> X friends {UserData.name}! </Typography>
               </Paper>
             </Grid>
               <Grid item   xs ={8}  >

@@ -8,19 +8,19 @@ const styles = theme => ({
 
 })
 
-class Backgroundfetch extends Component {
+class BackgroundFetchBGStock extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data: []
+      bgstock: []
     }
   }
   componentDidMount(){
     console.log("Fetching")
     fetch('https://bgg-json.azurewebsites.net/hot')
     .then(response =>  response.json())
-    .then(data => this.setState({ data}));
-          console.log(this.state.data)
+    .then(bgstock => this.setState({ bgstock}));
+          console.log(this.state.bgstock)
 }
   render() {
     return(
@@ -29,7 +29,50 @@ class Backgroundfetch extends Component {
   }
 }
 
-export default ( Backgroundfetch);
+class BackgroundFetchPrivateLibrary extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      bglibrary: []
+    }
+  }
+  componentDidMount(){
+    console.log("Fetching")
+    fetch('https://bgg-json.azurewebsites.net/hot')
+    .then(response =>  response.json())
+    .then(bglibrary => this.setState({ bglibrary}));
+          console.log(this.state.bglibrary)
+}
+  render() {
+    return(
+      <div></div>
+    )
+  }
+}
+
+
+class BackgroundFetchUserData extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      user: []
+    }
+  }
+  componentDidMount(){
+    console.log("Fetching")
+    fetch('https://bgg-json.azurewebsites.net/hot')
+    .then(response =>  response.json())
+    .then(user => this.setState({ user}));
+          console.log(this.state.user)
+}
+  render() {
+    return(
+      <div></div>
+    )
+  }
+}
+
+export default ( BackgroundFetchBGStock);
 
 
 // let fetchedgame = data.results.map( (game) => {
