@@ -12,6 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -23,7 +24,9 @@ const styles = theme => ({
   gridItem:{
     padding: 40
   },
-
+  purchaseButton:{
+    color: '#e53635'
+  },
   control: {
     padding: theme.spacing.unit * 2,
   },
@@ -38,7 +41,7 @@ const styles = theme => ({
    minWidth: 250,
    maxWidth: 220,
    minHeight: 220,
-   maxHeight:220,
+   maxHeight:300,
    BackgroundColor: '#ff6659'
  },
 BoardGameCardTextDiv:{
@@ -104,6 +107,12 @@ class BoardGameCard extends Component {
                       <Typography className={classes.BoardGameCardDescription} variant="body2">{this.props.details.publisher}</Typography>
                     </div>
                     </CardActionArea>
+                    <CardActions>
+                      <Button variant="contained" className={classes.purchaseButtonsize} size="small" color="primary">
+                        Purchase
+                      </Button>
+                      <Typography align="right" variant="body2"> X in Stock</Typography>
+                      </CardActions>
                 </Card>
               </Grid>
     )

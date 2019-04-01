@@ -12,19 +12,19 @@ class Backgroundfetch extends Component {
   constructor(props){
     super(props);
     this.state = {
-      game: []
+      data: []
     }
   }
   componentDidMount(){
     console.log("Fetching")
-    fetch('https://bgg-json.azurewebsites.net/thing/31260')
+    fetch('https://bgg-json.azurewebsites.net/hot')
     .then(response =>  response.json())
-    .then(data => this.setState({ game: data.game}));
-          console.log(this.props.game)
+    .then(data => this.setState({ data}));
+          console.log(this.state.data)
 }
   render() {
     return(
-      <div>{this.state.game}</div>
+      <div></div>
     )
   }
 }

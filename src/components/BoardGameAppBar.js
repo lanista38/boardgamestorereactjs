@@ -9,19 +9,27 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import LibraryView from './LibraryView';
+import BoardGameDetailView from './BoardGameDetailView';
+import PrivateLibraryView from './PrivateLibraryView';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#29434e',
+    backgroundColor: '#ff8f00',
   },
 
   grow: {
   flexGrow: 1,
 },
   PrimaryColor:{
-    backgroundColor: '#e53635'
+    backgroundColor: '#ff8f00'
   },
   menuButton: {
   marginLeft: -12,
@@ -38,12 +46,23 @@ function Home() {
 }
 
  class BoardGameAppBar extends Component {
+   state = {
+    open: false,
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
  render() {
    const { classes } = this.props;
    return(
      <Router>
-      <Switch>
+      <div>
        <AppBar className={classes.PrimaryColor} position="static">
          <Toolbar>
            <IconButton className={classes.menuButton} color="inherit"  aria-label="Menu">
@@ -51,26 +70,60 @@ function Home() {
            </IconButton>
 
            <Typography variant="h6" color="inherit"  className={classes.grow}>
-           The Gaming Pit
+        <Link  to="/">   The Gaming Pit</Link>
            </Typography>
 
-           <Link color="inherit" to="/user/">
+           <Link color="inherit" to="/user">
 
            <IconButton   aria-label="Account">
            <LibraryIcon />
 
            </IconButton>  </Link>
-           <Button color="inherit" >Login</Button>
+           <Button color="inherit" onClick={this.handleClickOpen}>Login</Button>
+           <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Log In</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+            Sign in with your account to have access to your game library.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="User Name"
+              type="username"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Password"
+              type="password"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleClose} color="primary">
+              Login
+            </Button>
+          </DialogActions>
+        </Dialog>
          </Toolbar>
        </AppBar>
-       <Route exact path="/" component = {Home}/>
-       <Route path="/user/" component = {LibraryView}/>
-       </Switch>
+       <Route  exact path="/" component = {LibraryView}/>
+       <Route path="/user/" component = {PrivateLibraryView}/>
+       </div>
      </Router>
    )
  }
 }
-
 BoardGameAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };

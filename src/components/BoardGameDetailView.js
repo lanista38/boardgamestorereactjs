@@ -32,11 +32,15 @@ const PostsData = [
 ]
 
 
-class DetailView extends Component {
-  
+class BoardGameDetailView extends Component {
+
   render() {
     return(
-
-    )
+      <div>
+        <h2>Home</h2>
+      </div>
+    );
   }
 }
+
+export default withStyles(styles)(BoardGameDetailView);

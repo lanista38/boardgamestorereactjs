@@ -25,7 +25,7 @@ import Backgroundfetch from './components/Backgroundfetch';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#29434e',
+    backgroundColor: '#c56000',
   },
 
   gridContainer: {
@@ -66,28 +66,14 @@ componentWillMount() {
     const { spacing } = this.state;
 
     return (
-      <Router>
+
         <div className={classes.root} >
         < BoardGameAppBar classes = {this.props.classes}>
         </BoardGameAppBar>
 
-          <Backgroundfetch> </Backgroundfetch>
 
-        <Grid container className={classes.gridContainer} spacing={16}>
-
-          <Grid item xs={12}>
-            <Grid container justify="center" spacing={16}>
-            {
-            Object
-            .keys(this.state.posts)
-            .map(key => (
-              <BoardGameCard  key={key} index={key} details={this.state.posts[key]}/>
-          ))}
-            </Grid>
-          </Grid>
-        </Grid>
         </div>
-      </Router>
+
     );
   }
 }
@@ -150,3 +136,23 @@ App.propTypes = {
 };
 
 export default withStyles(styles)(App);
+
+
+
+
+
+// <Backgroundfetch> </Backgroundfetch>
+//
+// <Grid container className={classes.gridContainer} spacing={16}>
+//
+// <Grid item xs={12}>
+//   <Grid container justify="center" spacing={16}>
+//   {
+//   Object
+//   .keys(this.state.posts)
+//   .map(key => (
+//     <BoardGameCard  key={key} index={key} details={this.state.posts[key]}/>
+// ))}
+//   </Grid>
+// </Grid>
+// </Grid>

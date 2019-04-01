@@ -18,12 +18,20 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import BoardGameCard from './BoardGameCard';
 import BoardGameAppBar from './BoardGameAppBar';
-import Backgroundfetch from './Backgroundfetch';
-const styles = theme => ({
 
+
+const styles = theme => ({
+  userdetails:{
+    padding: 10,
+    margin: 'auto',
+    maxWidth: 500,
+  },
+  gridContainer:{
+
+  },
 })
 
-class LibraryView extends Component {
+class PrivateLibraryView extends Component {
   constructor() {
   super();
 
@@ -51,29 +59,42 @@ componentWillMount() {
     const { classes } = this.props;
     const { spacing } = this.state;
       return (
-        <div  >
-        <Backgroundfetch> </Backgroundfetch>
-        <Grid container className={classes.gridContainer} spacing={16}>
-          <Grid item xs={12}>
-            <Grid container justify="center" spacing={Number(spacing)}>
-            {
-            Object
-            .keys(this.state.posts)
-            .map(key => (
-              <BoardGameCard  key={key} index={key} details={this.state.posts[key]}/>
-          ))}
+        <div >
+          <Grid  container direction="row" justify="flex-start" spacing={24}>
+            <Grid item  xs ={4} >
+              <Paper className="userdetails" >
+                <Avatar alt="Remy Sharp" src="" className={classes.bigAvatar} />
+                <Typography> Welcome to your Library {UserData.name}! </Typography>
+                <Typography>  X titles in your library </Typography>
+                <Typography> X friends {UserData.name}! </Typography>
+              </Paper>
             </Grid>
+              <Grid item   xs ={8}  >
+                <Grid  container direction="row" justify="center" >
 
-          </Grid>
+                  {
+                    Object
+                    .keys(this.state.posts)
+                    .map(key => (
+                      <BoardGameCard  key={key} index={key} details={this.state.posts[key]}/>
+                    ))}
 
-        </Grid>
-        </div>
+                </Grid>
+              </Grid>
+            </Grid>
+          </div>
       );
     }
   }
 
 
-
+  const UserData = [
+    {
+      "name": "Jorge",
+      "username": "Lanista",
+      "email": "someemail@gmail.com"
+    },
+  ]
   const PostsData = [
     {
       "category": "Area Control",
@@ -125,8 +146,8 @@ componentWillMount() {
     },
   ]
 
-  LibraryView.propTypes = {
+  PrivateLibraryView.propTypes = {
     classes: PropTypes.object.isRequired,
   };
 
-  export default withStyles(styles)(LibraryView);
+  export default withStyles(styles)(PrivateLibraryView);
