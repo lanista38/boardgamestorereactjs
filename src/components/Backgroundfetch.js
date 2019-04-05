@@ -8,19 +8,22 @@ const styles = theme => ({
 
 })
 
+const API = 'http://localhost:4567/';
+
 class BackgroundFetchBGStock extends Component {
   constructor(props){
     super(props);
     this.state = {
-      bgstock: []
+      allbg: []
     }
   }
   componentDidMount(){
     console.log("Fetching")
-    fetch('https://bgg-json.azurewebsites.net/hot')
+    fetch(API + '/getBoardGames')
     .then(response =>  response.json())
-    .then(bgstock => this.setState({ bgstock}));
-          console.log(this.state.bgstock)
+    .then(resdata => {this.setState({ allbg: resdata });
+     console.log(this.state.allbg)})
+
 }
   render() {
     return(

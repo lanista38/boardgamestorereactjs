@@ -91,14 +91,14 @@ class BoardGameCard extends Component {
                 <CardActionArea>
                     <CardMedia
                       className={classes.media}
-                      image={this.props.details.image}
+                      image={this.props.details.photo_url}
                       title="Game Thumbnail"/>
                       <div className={classes.BoardGameCardDetailsDiv}>
                       <div className={classes.DetailsList}>
-                        <div className={classes.DetailsListItem}><Chip className={classes.catChip} color="primary"  label= {this.props.details.category} variant="outlined"></Chip></div>
+                        <div className={classes.DetailsListItem}><Chip className={classes.catChip} color="primary"  label= {this.props.details.category_name} variant="outlined"></Chip></div>
                         <div className={classes.LeftDiv}>
-                          <div className={classes.DetailsListItem}><Typography variant="caption">{this.props.details.playtime} min</Typography></div>
-                          <div className={classes.DetailsListItem}><Typography variant="caption">{this.props.details.playercount} players</Typography></div>
+                          <div className={classes.DetailsListItem}><Typography variant="caption">{this.props.details.average_playtime} min</Typography></div>
+                          <div className={classes.DetailsListItem}><Typography variant="caption">{this.props.details.max_player} players</Typography></div>
                         </div>
                       </div>
                       </div>

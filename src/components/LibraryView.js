@@ -18,27 +18,31 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import BoardGameCard from './BoardGameCard';
 import BoardGameAppBar from './BoardGameAppBar';
-import Backgroundfetch from './Backgroundfetch';
+import BackgroundFetchBGStock from './Backgroundfetch';
 const styles = theme => ({
 
 })
-
+const API = 'http://localhost:4567/';
 class LibraryView extends Component {
   constructor() {
   super();
 
   this.state = {
-    posts: {}
+    allbg: {}
   }
-}
-componentWillMount() {
-  this.setState({
-    posts: PostsData
-  });
 }
   state = {
     spacing: '16',
   };
+
+  componentDidMount(){
+    console.log("Fetching")
+    fetch(API + '/getBoardGames')
+    .then(response =>  response.json())
+    .then(resdata => {this.setState({ allbg: resdata });
+     console.log(this.state.allbg)})
+
+}
 
 
   handleChange = key => (event, value) => {
@@ -52,15 +56,15 @@ componentWillMount() {
     const { spacing } = this.state;
       return (
         <div  >
-        <Backgroundfetch> </Backgroundfetch>
+
         <Grid container className={classes.gridContainer} spacing={16}>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={Number(spacing)}>
             {
             Object
-            .keys(this.state.posts)
+            .keys(this.state.allbg)
             .map(key => (
-              <BoardGameCard  key={key} index={key} details={this.state.posts[key]}/>
+              <BoardGameCard  key={key} index={key} details={this.state.allbg[key]}/>
           ))}
             </Grid>
 

@@ -19,6 +19,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import BoardGameCard from './BoardGameCard';
 import BoardGameAppBar from './BoardGameAppBar';
 
+const API = 'http://localhost:4567/';
 
 const styles = theme => ({
   userdetailsContainer:{
@@ -42,13 +43,16 @@ class PrivateLibraryView extends Component {
   super();
 
   this.state = {
-    posts: {}
+    bglibrary: {}
   }
 }
-componentWillMount() {
-  this.setState({
-    posts: PostsData
-  });
+componentDidMount(){
+  console.log("Fetching")
+  fetch(API + '/getBoardGames/byusername/Lanista')
+  .then(response =>  response.json())
+  .then(resdata => {this.setState({ bglibrary: resdata });
+   console.log(this.state.bglibrary)})
+
 }
   state = {
     spacing: '16',
@@ -69,9 +73,9 @@ componentWillMount() {
           <Grid  container direction="row" justify="flex-start" spacing={24}>
             <Grid item  xs ={4} >
               <Paper className={classes.userdetailsContainer} >
-                <Avatar alt="Remy Sharp" src="" className={classes.bigAvatar} />
+                <Avatar alt="Remy Sharp" src="https://www.w3schools.com/w3images/avatar2.png" className={classes.bigAvatar} />
                 <Typography variant="h6" className={classes.userdetailsText}> Welcome to your Library {UserData.name}! </Typography>
-                <Typography variant="h6" className={classes.userdetailsText}>  X titles in your library </Typography>
+                <Typography variant="h6" className={classes.userdetailsText}>  {this.state.bglibrary.length} titles in your library </Typography>
                 <Typography variant="h6" className={classes.userdetailsText}> X friends {UserData.name}! </Typography>
               </Paper>
             </Grid>
@@ -80,9 +84,9 @@ componentWillMount() {
 
                   {
                     Object
-                    .keys(this.state.posts)
+                    .keys(this.state.bglibrary)
                     .map(key => (
-                      <BoardGameCard  key={key} index={key} details={this.state.posts[key]}/>
+                      <BoardGameCard  key={key} index={key} details={this.state.bglibrary[key]}/>
                     ))}
 
                 </Grid>
