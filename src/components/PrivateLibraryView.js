@@ -74,8 +74,8 @@ componentDidMount(){
             <Grid item  xs ={4} >
               <Paper className={classes.userdetailsContainer} >
                 <Avatar alt="Remy Sharp" src="https://www.w3schools.com/w3images/avatar2.png" className={classes.bigAvatar} />
-                <Typography variant="h6" className={classes.userdetailsText}> Welcome to your Library {UserData.name}! </Typography>
-                <Typography variant="h6" className={classes.userdetailsText}>  {this.state.bglibrary.length} titles in your library </Typography>
+                <Typography variant="h6" className={classes.userdetailsText}> Welcome to your Library Lanista! </Typography>
+                <Typography id="stockTextID" variant="h6" className={classes.userdetailsText}>  {this.state.bglibrary.length} titles in your library </Typography>
                 <Typography variant="h6" className={classes.userdetailsText}> X friends {UserData.name}! </Typography>
               </Paper>
             </Grid>

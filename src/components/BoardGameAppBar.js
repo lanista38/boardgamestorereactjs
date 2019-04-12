@@ -70,12 +70,12 @@ function Home() {
            </IconButton>
 
            <Typography variant="h6"  className={classes.grow}>
-           <Link  to="/">   The Gaming Pit</Link>
+           <Link id="siteTitleID" to="/">   The Gaming Pit</Link>
            </Typography>
 
            <Link color="inherit" to="/user">
 
-           <IconButton color="inherit"  aria-label="Account">
+           <IconButton id="privateLibraryButtonID" color="inherit"  aria-label="Account">
            <LibraryIcon />
 
            </IconButton>  </Link>
