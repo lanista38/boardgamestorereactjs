@@ -87,7 +87,7 @@ class BoardGameCard extends Component {
     const { classes } = this.props;
     return(
               <Grid className={classes.gridItem}  item>
-                <Card className={classes.card} details={this.props.details}>
+                <Card id="libraryBoardGameCardID" className={classes.card} details={this.props.details}>
                 <CardActionArea>
                     <CardMedia
                       className={classes.media}

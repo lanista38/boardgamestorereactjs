@@ -79,7 +79,7 @@ function Home() {
            <LibraryIcon />
 
            </IconButton>  </Link>
-           <Button color="inherit" onClick={this.handleClickOpen}>Login</Button>
+           <Button id="loginButtonID" color="inherit" onClick={this.handleClickOpen}>Login</Button>
            <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -92,7 +92,7 @@ function Home() {
             <TextField
               autoFocus
               margin="dense"
-              id="name"
+              id="loginNameField"
               label="User Name"
               type="username"
               fullWidth
@@ -100,7 +100,7 @@ function Home() {
             <TextField
               autoFocus
               margin="dense"
-              id="name"
+              id="loginPasswordField"
               label="Password"
               type="password"
               fullWidth
@@ -110,7 +110,7 @@ function Home() {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button id="submitLoginButtonID" onClick={this.handleClose} color="primary">
               Login
             </Button>
           </DialogActions>
