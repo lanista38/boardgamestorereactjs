@@ -86,7 +86,7 @@ componentDidMount(){
                     Object
                     .keys(this.state.bglibrary)
                     .map(key => (
-                      <BoardGameCard  key={key} index={key} details={this.state.bglibrary[key]}/>
+                      <BoardGameCard   id="libraryBoardGameCardID" key={key} index={key} details={this.state.bglibrary[key]}/>
                     ))}
 
                 </Grid>
