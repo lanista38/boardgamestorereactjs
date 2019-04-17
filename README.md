@@ -9,6 +9,6 @@ transactions that may be performed on board games depending on its status. Lastl
 
 
 
-###Phase 2 Demo Gif
+### Phase 2 Demo Gif
 
-<img src= 'https://gfycat.com/FormalWellinformedDeinonychus'/>
+<img src= 'https://gfycat.com/FormalWellinformedDeinonychus' />
