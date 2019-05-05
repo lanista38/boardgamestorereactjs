@@ -81,7 +81,13 @@ const PostsData = [
 
 
 class BoardGameCard extends Component {
+  state = {
+    showPurchasebutton: true,
+  };
 
+  onPurchaseClick = () => {
+    this.setState({ showPurchasebutton: false  });
+  }
 
   render() {
     const { classes } = this.props;
@@ -108,7 +114,7 @@ class BoardGameCard extends Component {
                     </div>
                     </CardActionArea>
                     <CardActions>
-                      <Button variant="contained" className={classes.purchaseButtonsize} size="small" >
+                      <Button variant="contained" className={classes.purchaseButtonsize} size="small" onClick={this.onPurchaseClick}>
                         Purchase
                       </Button>
                       <Typography align="right" variant="body2"> X in Stock</Typography>
