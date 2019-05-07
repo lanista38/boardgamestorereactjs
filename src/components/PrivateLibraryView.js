@@ -47,17 +47,30 @@ class PrivateLibraryView extends Component {
   }
 }
 componentDidMount(){
+  var unameglobal = localStorage.getItem("username");
   console.log("Fetching")
-  fetch(API + '/getBoardGames/byusername/Lanista')
+  //should check if user is logged
+  fetch(API + '/getBoardGames/byusername/' + unameglobal)
   .then(response =>  response.json())
   .then(resdata => {this.setState({ bglibrary: resdata });
    console.log(this.state.bglibrary)})
 
+   console.log(unameglobal);
 }
   state = {
     spacing: '16',
   };
 
+  onShareClick(){
+  var copyText = 'http://localhost:3000/sharedUser/';
+  localStorage.removeItem("sharedLibrary")
+  localStorage.setItem("sharedLibrary", localStorage.getItem("username"))
+  navigator.clipboard.writeText(copyText).then(function() {
+    /* clipboard successfully set */
+  }, function() {
+    /* clipboard write failed */
+  });
+  }
 
   handleChange = key => (event, value) => {
     this.setState({
@@ -75,10 +88,10 @@ componentDidMount(){
             <Grid item  xs ={4} >
               <Paper className={classes.userdetailsContainer} >
                 <Avatar alt="Remy Sharp" src="https://www.w3schools.com/w3images/avatar2.png" className={classes.bigAvatar} />
-                <Typography variant="h6" className={classes.userdetailsText}> Welcome to your Library Lanista! </Typography>
+                <Typography variant="h6" className={classes.userdetailsText}> Welcome to your Library {localStorage.getItem("username")}! </Typography>
                 <Typography id="stockTextID" variant="h6" className={classes.userdetailsText}>  {this.state.bglibrary.length} titles in your library </Typography>
                 <Typography variant="h6" className={classes.userdetailsText}> X friends {UserData.name}! </Typography>
-                <Button variant="contained" color="primary" className={classes.button}>Share Library! </Button>
+                <Button variant="contained" color="primary" className={classes.button} onClick={this.onShareClick}>Share Library! </Button>
               </Paper>
             </Grid>
               <Grid item   xs ={8}  >

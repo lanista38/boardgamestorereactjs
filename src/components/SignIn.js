@@ -13,6 +13,12 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+
+
+const API = 'http://localhost:4567//BGapi/apiV2';
+const APIauth = 'http://localhost:4567//BGapi/auth';
+
+
 const styles = theme => ({
   main: {
     width: 'auto',
@@ -49,8 +55,36 @@ class SignIn extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      username: '',
+      password: '',
+      loginres: '',
     }
   }
+
+handleUsernameChange(event) {
+this.setState({username: event.target.value})
+}
+handlePasswordChange(event) {
+this.setState({password: event.target.value})
+}
+
+////login/username/:username/password/:password
+onLoginClick = () => {
+  console.log(this.state.username);
+  console.log("posting")
+  fetch(APIauth + '/login/username/' + this.state.username + '/password/' + this.state.password)
+  .then(response =>  response.json())
+  .then(resdata => {this.setState({ loginres: resdata });
+  console.log(this.state.loginres);
+  localStorage.removeItem("username");
+    localStorage.removeItem("authtoken");
+   localStorage.setItem("username", this.state.username);
+   localStorage.setItem("authtoken", this.state.loginres.token)
+   //location.reload();
+
+})
+}
+
   render () {
     const { classes } = this.props;
     return (
@@ -65,23 +99,24 @@ class SignIn extends Component {
         </Typography>
         <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
+            <InputLabel >Username</InputLabel>
+            <Input id="username" name="username"  value={this.state.username} onChange={this.handleUsernameChange.bind(this)} autoFocus />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="password">Password</InputLabel>
-            <Input name="password" type="password" id="password" autoComplete="current-password" />
+            <Input name="password" type="password" id="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} autoComplete="current-password" />
           </FormControl>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <Button
-            type="submit"
+          type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={this.onLoginClick}
           >
             Sign in
           </Button>

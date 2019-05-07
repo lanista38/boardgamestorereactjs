@@ -78,14 +78,38 @@ class BackgroundFetchUserData extends Component {
 export default ( BackgroundFetchBGStock);
 
 
-// let fetchedgame = data.results.map( (game) => {
-//   return(
-//     <div key={game.results}>
-//       <Typography>{game.name}</Typography>
-//     </div>
-//   )
-// })
-//   console.log("Fetching")
-// this.setState({boardgame: fetchedgame});
-// console.log("state", this.state.boardgame);
-// }})
+// <Dialog
+// open={this.state.open}
+// onClose={this.handleClose}
+// aria-labelledby="form-dialog-title">
+// <DialogTitle id="form-dialog-title">Log In</DialogTitle>
+// <DialogContent>
+//  <DialogContentText>
+//  Sign in with your account to have access to your game library.
+//  </DialogContentText>
+//  <TextField
+//    autoFocus
+//    margin="dense"
+//    id="loginNameField"
+//    label="User Name"
+//    type="username"
+//    fullWidth
+//  />
+//  <TextField
+//    autoFocus
+//    margin="dense"
+//    id="loginPasswordField"
+//    label="Password"
+//    type="password"
+//    fullWidth
+//  />
+// </DialogContent>
+// <DialogActions>
+//  <Button onClick={this.handleClose} color="primary">
+//    Cancel
+//  </Button>
+//  <Button id="submitLoginButtonID" onClick={this.handleClose} color="primary">
+//    Login
+//  </Button>
+// </DialogActions>
+// </Dialog>

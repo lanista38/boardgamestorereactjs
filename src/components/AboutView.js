@@ -47,6 +47,7 @@ class AboutView extends Component {
     return (
       <div>
       <Paper className='about'>
+      <Typography variant='h4'>About Us</Typography>
       <Typography variant='h5'>
       The main idea behind the solution is to develop a website where customers can easily view available board games sold in-store, online and for rent. In addition, extra info on the board games may be provided and the system will have some user interaction/engagement where users may build their own private library of owned board games and share it with others. The system will serve as a platform to attract more customers to the physical store, and increase sales (both online and in-store).
       </Typography>

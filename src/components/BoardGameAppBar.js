@@ -21,6 +21,10 @@ import BoardGameDetailView from './BoardGameDetailView';
 import PrivateLibraryView from './PrivateLibraryView';
 import BoardGameFilter from './BoardGameFilter';
 import AboutView from './AboutView';
+import sharedUserBoardGameLibrary from './sharedUserBoardGameLibrary';
+
+
+
 
 const styles = theme => ({
   root: {
@@ -49,17 +53,30 @@ function Home() {
 }
 
  class BoardGameAppBar extends Component {
-   state = {
-    open: false,
+   constructor(props) {
+     super(props)
+     this.state = {
+       showlogoutbtn: true,
+    }
+   }
+
+componentWillMount(){
+  if(localStorage.getItem("username") != null)
+    this.setState({showlogoutbtn: true})
+
+}
+  componentDidMount(){
+    if(localStorage.getItem("username") != null)
+      this.setState({showlogoutbtn: true})
+
+  }
+  handleLogOut = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("authtoken");
+    this.setState({showlogoutbtn: false})
+      //var logout chip =
   };
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
 
  render() {
    const { classes } = this.props;
@@ -88,49 +105,14 @@ function Home() {
            <LocationCity />
            </IconButton>  </Link>
 
+           {this.state.showlogoutbtn && <Button id="logoutBtnID" color="inherit" onClick={this.handleLogOut}>Sign Out</Button>}
 
-           <Button id="loginButtonID" color="inherit" onClick={this.handleClickOpen}>Login</Button>
-           <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Log In</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-            Sign in with your account to have access to your game library.
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="loginNameField"
-              label="User Name"
-              type="username"
-              fullWidth
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="loginPasswordField"
-              label="Password"
-              type="password"
-              fullWidth
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button id="submitLoginButtonID" onClick={this.handleClose} color="primary">
-              Login
-            </Button>
-          </DialogActions>
-        </Dialog>
          </Toolbar>
        </AppBar>
        <Route  exact path="/" component = {LibraryView}/>
        <Route path="/user/" component = {PrivateLibraryView}/>
        <Route path="/details/" component = {BoardGameDetailView}/>
-        <Route path="/sharedUser/" component = {BoardGameDetailView}/>
+        <Route path="/sharedUser/" component = {sharedUserBoardGameLibrary}/>
         <Route path="/about/" component = {AboutView}/>
        </div>
      </Router>

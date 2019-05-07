@@ -19,7 +19,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import BoardGameCard from './BoardGameCard';
 import BoardGameAppBar from './BoardGameAppBar';
 
-const API = 'http://localhost:4567/';
+const API = 'http://localhost:4567//BGapi/apiV2';
 
 const styles = theme => ({
   userdetailsContainer:{
@@ -47,13 +47,28 @@ class sharedUserBoardGameLibrary extends Component {
   }
 }
 componentDidMount(){
+  var unameglobal = localStorage.getItem("sharedLibrary");
   console.log("Fetching")
-  fetch(API + '/getBoardGames/byusername/Lanista')
+  //should check if user is logged
+  fetch(API + '/getBoardGames/byusername/' + unameglobal)
   .then(response =>  response.json())
   .then(resdata => {this.setState({ bglibrary: resdata });
    console.log(this.state.bglibrary)})
 
 }
+
+
+onShareClick(){
+var copyText = 'http://localhost:3000/sharedUser/';
+localStorage.removeItem("sharedLibrary")
+localStorage.setItem("sharedLibrary", localStorage.getItem("sharedLibrary"))
+navigator.clipboard.writeText(copyText).then(function() {
+  /* clipboard successfully set */
+}, function() {
+  /* clipboard write failed */
+});
+}
+
   state = {
     spacing: '16',
   };
@@ -67,7 +82,6 @@ componentDidMount(){
 
   render() {
     const { classes } = this.props;
-    const { sharedUser } = this.props.sharedUser;
     const { spacing } = this.state;
       return (
         <div >
@@ -75,9 +89,9 @@ componentDidMount(){
             <Grid item  xs ={4} >
               <Paper className={classes.userdetailsContainer} >
                 <Avatar alt="Remy Sharp" src="https://www.w3schools.com/w3images/avatar2.png" className={classes.bigAvatar} />
-                <Typography variant="h6" className={classes.userdetailsText}> Welcome to Lanista's Library! </Typography>
+                <Typography variant="h6" className={classes.userdetailsText}> Welcome to {localStorage.getItem("sharedLibrary")}'s Library! </Typography>
                 <Typography id="stockTextID" variant="h6" className={classes.userdetailsText}>  {this.state.bglibrary.length} titles in library </Typography>
-                <Button> Share Library! </Button>
+                <Button variant="contained" color="primary" className={classes.button}> Share Library! </Button>
               </Paper>
             </Grid>
               <Grid item   xs ={8}  >
@@ -87,7 +101,7 @@ componentDidMount(){
                     Object
                     .keys(this.state.bglibrary)
                     .map(key => (
-                      <BoardGameCard   id="libraryBoardGameCardID" key={key} index={key} details={this.state.bglibrary[key]}/>
+                      <BoardGameCard   id="libraryBoardGameCardID" key={key} index={key}  details={this.state.bglibrary[key]}/>
                     ))}
 
                 </Grid>
@@ -98,67 +112,8 @@ componentDidMount(){
     }
   }
 
-
-  const UserData = [
-    {
-      "name": "Jorge",
-      "username": "Lanista",
-      "email": "someemail@gmail.com"
-    },
-  ]
-  const PostsData = [
-    {
-      "category": "Area Control",
-      "title": "Inis",
-      "publisher": "CMON Games",
-      "playtime": "90",
-      "playercount": "4",
-      "image": "https://cf.geekdo-images.com/imagepage/img/c6vFqiWZr3ix-2rMkUA0idcaOfk=/fit-in/900x600/filters:no_upscale()/pic3112623.jpg"
-    },
-    {
-      "category": "Area Control",
-      "title": "Blood Rage",
-      "publisher": "CMON Games",
-      "playtime": "90",
-      "playercount": "4",
-      "image": "https://cf.geekdo-images.com/original/img/p4IovYzLVXqxY40lbGUu92VxaIQ=/0x0/pic2439223.jpg"
-    },
-    {
-      "category": ["Co-op"],
-      "title": "Betrayal At House On The Hill",
-      "publisher": "CMON Games",
-      "playtime": "75",
-      "playercount": "6",
-      "image": "https://cf.geekdo-images.com/imagepage/img/ATOLalbskGxv_ZKYPTqdJC9lh_o=/fit-in/900x600/filters:no_upscale()/pic828598.jpg"
-    },
-    {
-      "category": "Area Control",
-      "title": "Time Stories",
-      "publisher": "CMON Games",
-      "playtime": "90",
-      "playercount": "4",
-      "image": "https://cf.geekdo-images.com/imagepage/img/evul1vzteA5QdbvAVeqaauIdziM=/fit-in/900x600/filters:no_upscale()/pic2617634.png"
-    },
-    {
-      "category": "Area Control",
-      "title": "Raiders of the North Sea",
-      "publisher": "CMON Games",
-      "playtime": "90",
-      "playercount": "4",
-      "image": "https://cf.geekdo-images.com/imagepage/img/JDWpDN9YS38DL9VQnND6tgsWnHk=/fit-in/900x600/filters:no_upscale()/pic3578101.jpg"
-    },
-    {
-      "category": ["Player Elimination"],
-      "title": "Coup",
-      "publisher": "Avalon Hill Games",
-      "playtime": "15",
-      "playercount": "6",
-      "image": "https://cf.geekdo-images.com/imagepagezoom/img/ZXaTzIdX60t6rsW80DL44ih76E8=/fit-in/1200x900/filters:no_upscale()/pic2016054.jpg"
-    },
-  ]
-
-  PrivateLibraryView.propTypes = {
+  sharedUserBoardGameLibrary.propTypes = {
     classes: PropTypes.object.isRequired,
   };
 
-  export default withStyles(styles)(PrivateLibraryView);
+  export default withStyles(styles)(sharedUserBoardGameLibrary);

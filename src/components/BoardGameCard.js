@@ -80,14 +80,27 @@ const PostsData = [
     "image": "https://cf.geekdo-images.com/imagepage/img/c6vFqiWZr3ix-2rMkUA0idcaOfk=/fit-in/900x600/filters:no_upscale()/pic3112623.jpg"
   },
 ]
-
+const API = 'http://localhost:4567/BGapi/apiV2';
+const APIauth = 'http://localhost:4567/BGapi/auth';
 
 class BoardGameCard extends Component {
   state = {
     showPurchasebutton: this.props.showbtn,
   };
+  componentDidMount(){
+    if(localStorage.getItem("username") == localStorage.getItem("sharedLibrary") && !this.props.showPurchasebutton)
+    {
+      this.setState({showPurchasebutton: false});
 
+    }
+    else if (localStorage.getItem("username") != localStorage.getItem("sharedLibrary") && !this.props.showPurchasebutton)
+      {this.setState({showPurchasebutton: true});}
+
+  }
+  ///buyBoardGames/byusername/:username/boardgameid/:bg_id/quantity/:quantity
   onPurchaseClick = () => {
+    console.log("buying")
+    fetch(API + '/buyBoardGames/byusername/' + localStorage.getItem('username') + '/boardgameid/' + this.props.details.bg_id + '/quantity/1', {method: 'POST'})
     this.setState({ showPurchasebutton: false  });
   }
 
@@ -123,12 +136,12 @@ class BoardGameCard extends Component {
                     </CardActionArea>
                     </Link>
                     <CardActions>
-                      {this.state.showPurchasebutton && <Button variant="contained" className={classes.purchaseButtonsize} size="small" onClick={this.onPurchaseClick}>
+                      {this.state.showPurchasebutton  && <Button variant="contained" className={classes.purchaseButtonsize} size="small" onClick={this.onPurchaseClick}>
                         Purchase
                         </Button>
                       }
 
-                      <Typography align="right" variant="body2"> X in Stock</Typography>
+                      <Typography align="right" variant="body2"> {this.props.details.quantity} in Stock</Typography>
                       </CardActions>
                 </Card>
               </Grid>
