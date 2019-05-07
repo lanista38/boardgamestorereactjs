@@ -19,7 +19,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import BoardGameCard from './BoardGameCard';
 import BoardGameAppBar from './BoardGameAppBar';
 
-const API = 'http://localhost:4567//BGapi/apiV2';
+const API = 'http://localhost:4567/';
 
 const styles = theme => ({
   userdetailsContainer:{
@@ -38,7 +38,7 @@ const styles = theme => ({
   },
 })
 
-class PrivateLibraryView extends Component {
+class sharedUserBoardGameLibrary extends Component {
   constructor() {
   super();
 
@@ -67,7 +67,7 @@ componentDidMount(){
 
   render() {
     const { classes } = this.props;
-
+    const { sharedUser } = this.props.sharedUser;
     const { spacing } = this.state;
       return (
         <div >
@@ -75,10 +75,9 @@ componentDidMount(){
             <Grid item  xs ={4} >
               <Paper className={classes.userdetailsContainer} >
                 <Avatar alt="Remy Sharp" src="https://www.w3schools.com/w3images/avatar2.png" className={classes.bigAvatar} />
-                <Typography variant="h6" className={classes.userdetailsText}> Welcome to your Library Lanista! </Typography>
-                <Typography id="stockTextID" variant="h6" className={classes.userdetailsText}>  {this.state.bglibrary.length} titles in your library </Typography>
-                <Typography variant="h6" className={classes.userdetailsText}> X friends {UserData.name}! </Typography>
-                <Button variant="contained" color="primary" className={classes.button}>Share Library! </Button>
+                <Typography variant="h6" className={classes.userdetailsText}> Welcome to Lanista's Library! </Typography>
+                <Typography id="stockTextID" variant="h6" className={classes.userdetailsText}>  {this.state.bglibrary.length} titles in library </Typography>
+                <Button> Share Library! </Button>
               </Paper>
             </Grid>
               <Grid item   xs ={8}  >
@@ -88,7 +87,7 @@ componentDidMount(){
                     Object
                     .keys(this.state.bglibrary)
                     .map(key => (
-                      <BoardGameCard   id="libraryBoardGameCardID" key={key} index={key} showbtn={false} details={this.state.bglibrary[key]}/>
+                      <BoardGameCard   id="libraryBoardGameCardID" key={key} index={key} details={this.state.bglibrary[key]}/>
                     ))}
 
                 </Grid>

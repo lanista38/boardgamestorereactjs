@@ -16,6 +16,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
+import {BrowserRouter as Router, Link, Route,Switch} from 'react-router-dom';
+import BoardGameDetailView from './BoardGameDetailView';
 
 const styles = theme => ({
   gridContainer: {
@@ -82,7 +84,7 @@ const PostsData = [
 
 class BoardGameCard extends Component {
   state = {
-    showPurchasebutton: true,
+    showPurchasebutton: this.props.showbtn,
   };
 
   onPurchaseClick = () => {
@@ -92,8 +94,14 @@ class BoardGameCard extends Component {
   render() {
     const { classes } = this.props;
     return(
+       <Router>
+       <div>
               <Grid className={classes.gridItem}  item>
                 <Card id="libraryBoardGameCardID" className={classes.card} details={this.props.details}>
+                 <Link color="inherit"   to={{
+                                        pathname: "/details/",
+
+                                        }}>
                 <CardActionArea>
                     <CardMedia
                       className={classes.media}
@@ -113,14 +121,20 @@ class BoardGameCard extends Component {
                       <Typography className={classes.BoardGameCardDescription} variant="body2">{this.props.details.publisher}</Typography>
                     </div>
                     </CardActionArea>
+                    </Link>
                     <CardActions>
-                      <Button variant="contained" className={classes.purchaseButtonsize} size="small" onClick={this.onPurchaseClick}>
+                      {this.state.showPurchasebutton && <Button variant="contained" className={classes.purchaseButtonsize} size="small" onClick={this.onPurchaseClick}>
                         Purchase
-                      </Button>
+                        </Button>
+                      }
+
                       <Typography align="right" variant="body2"> X in Stock</Typography>
                       </CardActions>
                 </Card>
               </Grid>
+              <Route exact path="/details/" render={(props) => <BoardGameDetailView details={this.props.details} />}/>
+              </div>
+               </Router>
     )
   }
 }

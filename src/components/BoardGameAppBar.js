@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import LibraryIcon from '@material-ui/icons/LibraryBooks';
+import LocationCity from '@material-ui/icons/LocationCity';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -18,6 +19,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import LibraryView from './LibraryView';
 import BoardGameDetailView from './BoardGameDetailView';
 import PrivateLibraryView from './PrivateLibraryView';
+import BoardGameFilter from './BoardGameFilter';
+import AboutView from './AboutView';
 
 const styles = theme => ({
   root: {
@@ -77,8 +80,15 @@ function Home() {
 
            <IconButton id="privateLibraryButtonID" color="inherit"  aria-label="Account">
            <LibraryIcon />
-
            </IconButton>  </Link>
+
+           <Link color="inherit" to="/about">
+
+           <IconButton id="aboutButtonID" color="inherit"  aria-label="location_city">
+           <LocationCity />
+           </IconButton>  </Link>
+
+
            <Button id="loginButtonID" color="inherit" onClick={this.handleClickOpen}>Login</Button>
            <Dialog
           open={this.state.open}
@@ -119,6 +129,9 @@ function Home() {
        </AppBar>
        <Route  exact path="/" component = {LibraryView}/>
        <Route path="/user/" component = {PrivateLibraryView}/>
+       <Route path="/details/" component = {BoardGameDetailView}/>
+        <Route path="/sharedUser/" component = {BoardGameDetailView}/>
+        <Route path="/about/" component = {AboutView}/>
        </div>
      </Router>
    )

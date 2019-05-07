@@ -16,13 +16,19 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
+import  _ from "lodash";
+import ReactFilterBox, {SimpleResultProcessing,Expression} from "react-filter-box";
+import "react-filter-box/lib/react-filter-box.css"
 import BoardGameCard from './BoardGameCard';
 import BoardGameAppBar from './BoardGameAppBar';
 import BackgroundFetchBGStock from './Backgroundfetch';
 const styles = theme => ({
+  searchdiv: {
 
+},
 })
-const API = 'http://localhost:4567/';
+const API = 'http://localhost:4567/BGapi/apiV2';
+const APIauth = 'http://localhost:4567/BGapi/auth';
 class LibraryView extends Component {
   constructor() {
   super();
@@ -30,14 +36,33 @@ class LibraryView extends Component {
   this.state = {
     allbg: {}
   }
+
+  this.options = [
+   {
+       columnField: "title",
+       type:"text"
+   },
+   {
+       columnField: "category_name",
+       type:"text",
+       columnText: "Category"
+   },
+];
 }
   state = {
     spacing: '16',
   };
 
+  onParseOk(expressions){
+
+        var bgfilter = new SimpleResultProcessing(this.options).process(this.state.allbg,expressions);
+        this.setState({allbg:bgfilter});
+        console.log(bgfilter);
+    }
+
   componentDidMount(){
     console.log("Fetching")
-    fetch(API + '/getBoardGames')
+    fetch(API + '/getBoardGames/InSale')
     .then(response =>  response.json())
     .then(resdata => {this.setState({ allbg: resdata });
      console.log(this.state.allbg)})
@@ -56,15 +81,23 @@ class LibraryView extends Component {
     const { spacing } = this.state;
       return (
         <div  >
-
+        <Paper className ={classes.searchdiv}>
+        <ReactFilterBox
+                   query={this.state.query}
+                   data={this.state.allbg}
+                   options={this.options}
+                   onParseOk={this.onParseOk.bind(this)}
+                    />
+          </Paper>
         <Grid container className={classes.gridContainer} spacing={16}>
+
           <Grid item xs={12}>
             <Grid container justify="center" spacing={Number(spacing)}>
             {
             Object
             .keys(this.state.allbg)
             .map(key => (
-              <BoardGameCard  key={key} index={key} details={this.state.allbg[key]}/>
+              <BoardGameCard  key={key} index={key} showbtn={true} details={this.state.allbg[key]}/>
           ))}
             </Grid>
 
