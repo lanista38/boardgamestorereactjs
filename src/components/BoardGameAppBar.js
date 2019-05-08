@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Link, Route,Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect, Link, Route,Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -56,7 +56,7 @@ function Home() {
    constructor(props) {
      super(props)
      this.state = {
-       showlogoutbtn: true,
+       showlogoutbtn: '',
     }
    }
 
@@ -78,10 +78,11 @@ componentWillMount(){
   };
 
 
+
  render() {
    const { classes } = this.props;
    return(
-     <Router>
+
       <div>
        <AppBar className={classes.PrimaryColor} position="static">
          <Toolbar>
@@ -90,32 +91,32 @@ componentWillMount(){
            </IconButton>
 
            <Typography variant="h6"  className={classes.grow}>
-           <Link id="siteTitleID" to="/">   The Gaming Pit</Link>
+           <Link id="siteTitleID" to="/home/">   The Gaming Pit</Link>
            </Typography>
 
-           <Link color="inherit" to="/user">
+           <Link color="inherit" to="/user/">
 
            <IconButton id="privateLibraryButtonID" color="inherit"  aria-label="Account">
            <LibraryIcon />
            </IconButton>  </Link>
 
-           <Link color="inherit" to="/about">
+           <Link color="inherit" to="/about/">
 
            <IconButton id="aboutButtonID" color="inherit"  aria-label="location_city">
+
            <LocationCity />
            </IconButton>  </Link>
 
-           {this.state.showlogoutbtn && <Button id="logoutBtnID" color="inherit" onClick={this.handleLogOut}>Sign Out</Button>}
+           {this.state.showlogoutbtn && <Button id="logoutBtnID" color="inherit" onClick={this.handleLogOut}><Redirect to="/about/"/>Sign Out</Button>}
 
          </Toolbar>
        </AppBar>
-       <Route  exact path="/" component = {LibraryView}/>
-       <Route path="/user/" component = {PrivateLibraryView}/>
-       <Route path="/details/" component = {BoardGameDetailView}/>
+       <PrivateRoute  path="/home/" component = {LibraryView}/>
+       <PrivateRoute path="/user/" component = {PrivateLibraryView}/>
+       <PrivateRoute path="/details/" component = {BoardGameDetailView}/>
         <Route path="/sharedUser/" component = {sharedUserBoardGameLibrary}/>
-        <Route path="/about/" component = {AboutView}/>
+        <Route exact path="/about/" component = {AboutView}/>
        </div>
-     </Router>
    )
  }
 }
@@ -123,5 +124,25 @@ BoardGameAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+
+function PrivateRoute({ component: Component, ...rest }) {
+return (
+  <Route
+    {...rest}
+    render={props =>
+      localStorage.getItem("username") ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/about",
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+);
+}
 
 export default withStyles(styles)( BoardGameAppBar);

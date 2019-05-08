@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-
+import {BrowserRouter as Router, Redirect, Link, Route,Switch} from 'react-router-dom';
 import BoardGameCard from './components/BoardGameCard';
 import BoardGameAppBar from './components/BoardGameAppBar';
 import SimpleStorage from "react-simple-storage";
@@ -32,93 +32,29 @@ class App extends Component {
   super();
 
   this.state = {
-    posts: {}
   }
-}
-componentWillMount() {
-  this.setState({
-    posts: PostsData
-  });
 }
   state = {
     spacing: '16',
   };
 
 
-  handleChange = key => (event, value) => {
-    this.setState({
-      [key]: value,
-    });
-  };
-
   render() {
     const { classes } = this.props;
     const { spacing } = this.state;
 
     return (
-
+<Router>
         <div className={classes.root} >
         < BoardGameAppBar classes = {this.props.classes}>
         </BoardGameAppBar>
 
 
         </div>
-
+</Router>
     );
   }
 }
-
-const PostsData = [
-  {
-    "category": "Area Control",
-    "title": "Inis",
-    "publisher": "CMON Games",
-    "playtime": "90",
-    "playercount": "4",
-    "image": "https://cf.geekdo-images.com/imagepage/img/c6vFqiWZr3ix-2rMkUA0idcaOfk=/fit-in/900x600/filters:no_upscale()/pic3112623.jpg"
-  },
-  {
-    "category": "Area Control",
-    "title": "Blood Rage",
-    "publisher": "CMON Games",
-    "playtime": "90",
-    "playercount": "4",
-    "image": "https://cf.geekdo-images.com/original/img/p4IovYzLVXqxY40lbGUu92VxaIQ=/0x0/pic2439223.jpg"
-  },
-  {
-    "category": ["Co-op"],
-    "title": "Betrayal At House On The Hill",
-    "publisher": "CMON Games",
-    "playtime": "75",
-    "playercount": "6",
-    "image": "https://cf.geekdo-images.com/imagepage/img/ATOLalbskGxv_ZKYPTqdJC9lh_o=/fit-in/900x600/filters:no_upscale()/pic828598.jpg"
-  },
-  {
-    "category": "Area Control",
-    "title": "Time Stories",
-    "publisher": "CMON Games",
-    "playtime": "90",
-    "playercount": "4",
-    "image": "https://cf.geekdo-images.com/imagepage/img/evul1vzteA5QdbvAVeqaauIdziM=/fit-in/900x600/filters:no_upscale()/pic2617634.png"
-  },
-  {
-    "category": "Area Control",
-    "title": "Raiders of the North Sea",
-    "publisher": "CMON Games",
-    "playtime": "90",
-    "playercount": "4",
-    "image": "https://cf.geekdo-images.com/imagepage/img/JDWpDN9YS38DL9VQnND6tgsWnHk=/fit-in/900x600/filters:no_upscale()/pic3578101.jpg"
-  },
-  {
-    "category": ["Player Elimination"],
-    "title": "Coup",
-    "publisher": "Avalon Hill Games",
-    "playtime": "15",
-    "playercount": "6",
-    "image": "https://cf.geekdo-images.com/imagepagezoom/img/ZXaTzIdX60t6rsW80DL44ih76E8=/fit-in/1200x900/filters:no_upscale()/pic2016054.jpg"
-  },
-]
-
 
 
 App.propTypes = {

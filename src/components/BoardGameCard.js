@@ -88,7 +88,7 @@ class BoardGameCard extends Component {
     showPurchasebutton: this.props.showbtn,
   };
   componentDidMount(){
-    if(localStorage.getItem("username") == localStorage.getItem("sharedLibrary") && !this.props.showPurchasebutton)
+    if(localStorage.getItem("username") == localStorage.getItem("sharedLibrary") && this.props.showPurchasebutton)
     {
       this.setState({showPurchasebutton: false});
 
@@ -100,21 +100,22 @@ class BoardGameCard extends Component {
   ///buyBoardGames/byusername/:username/boardgameid/:bg_id/quantity/:quantity
   onPurchaseClick = () => {
     console.log("buying")
-    fetch(API + '/buyBoardGames/byusername/' + localStorage.getItem('username') + '/boardgameid/' + this.props.details.bg_id + '/quantity/1', {method: 'POST'})
+    if(this.props.details.quantity > 0)
+    {fetch(API + '/buyBoardGames/byusername/' + localStorage.getItem('username') + '/boardgameid/' + this.props.details.bg_id + '/quantity/1', {method: 'POST'})
     this.setState({ showPurchasebutton: false  });
+    alert( 'Game Successfully Purchased!');}
+    else {alert( 'No stock left in the system!');}
+    this.forceUpdate()
   }
 
   render() {
     const { classes } = this.props;
     return(
-       <Router>
        <div>
               <Grid className={classes.gridItem}  item>
                 <Card id="libraryBoardGameCardID" className={classes.card} details={this.props.details}>
                  <Link color="inherit"   to={{
-                                        pathname: "/details/",
-
-                                        }}>
+                                        pathname: "/details/",}}>
                 <CardActionArea>
                     <CardMedia
                       className={classes.media}
@@ -145,9 +146,8 @@ class BoardGameCard extends Component {
                       </CardActions>
                 </Card>
               </Grid>
-              <Route exact path="/details/" render={(props) => <BoardGameDetailView details={this.props.details} />}/>
+
               </div>
-               </Router>
     )
   }
 }
@@ -155,6 +155,8 @@ class BoardGameCard extends Component {
 BoardGameCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
+//     <Route  to={{pathname: '/details',
+//     state: { viewdetails: this.props.details }
+// }} component = {BoardGameDetailView}/>
 
 export default withStyles(styles)( BoardGameCard);

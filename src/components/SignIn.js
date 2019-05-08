@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router, Redirect, Link, Route,Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -88,7 +89,8 @@ onLoginClick = () => {
   render () {
     const { classes } = this.props;
     return (
-    <main className={classes.main}>
+      <Router>
+    <div className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -118,11 +120,13 @@ onLoginClick = () => {
             className={classes.submit}
             onClick={this.onLoginClick}
           >
+          <Redirect to="/home/"/>
             Sign in
           </Button>
         </form>
       </Paper>
-    </main>
+    </div>
+    </Router>
   );
 }
 }

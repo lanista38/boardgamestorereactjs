@@ -70,6 +70,7 @@ componentDidMount(){
   }, function() {
     /* clipboard write failed */
   });
+  alert( localStorage.getItem("username") + "'s Profile Successfully Copied!");
   }
 
   handleChange = key => (event, value) => {
@@ -90,7 +91,6 @@ componentDidMount(){
                 <Avatar alt="Remy Sharp" src="https://www.w3schools.com/w3images/avatar2.png" className={classes.bigAvatar} />
                 <Typography variant="h6" className={classes.userdetailsText}> Welcome to your Library {localStorage.getItem("username")}! </Typography>
                 <Typography id="stockTextID" variant="h6" className={classes.userdetailsText}>  {this.state.bglibrary.length} titles in your library </Typography>
-                <Typography variant="h6" className={classes.userdetailsText}> X friends {UserData.name}! </Typography>
                 <Button variant="contained" color="primary" className={classes.button} onClick={this.onShareClick}>Share Library! </Button>
               </Paper>
             </Grid>
@@ -112,64 +112,6 @@ componentDidMount(){
     }
   }
 
-
-  const UserData = [
-    {
-      "name": "Jorge",
-      "username": "Lanista",
-      "email": "someemail@gmail.com"
-    },
-  ]
-  const PostsData = [
-    {
-      "category": "Area Control",
-      "title": "Inis",
-      "publisher": "CMON Games",
-      "playtime": "90",
-      "playercount": "4",
-      "image": "https://cf.geekdo-images.com/imagepage/img/c6vFqiWZr3ix-2rMkUA0idcaOfk=/fit-in/900x600/filters:no_upscale()/pic3112623.jpg"
-    },
-    {
-      "category": "Area Control",
-      "title": "Blood Rage",
-      "publisher": "CMON Games",
-      "playtime": "90",
-      "playercount": "4",
-      "image": "https://cf.geekdo-images.com/original/img/p4IovYzLVXqxY40lbGUu92VxaIQ=/0x0/pic2439223.jpg"
-    },
-    {
-      "category": ["Co-op"],
-      "title": "Betrayal At House On The Hill",
-      "publisher": "CMON Games",
-      "playtime": "75",
-      "playercount": "6",
-      "image": "https://cf.geekdo-images.com/imagepage/img/ATOLalbskGxv_ZKYPTqdJC9lh_o=/fit-in/900x600/filters:no_upscale()/pic828598.jpg"
-    },
-    {
-      "category": "Area Control",
-      "title": "Time Stories",
-      "publisher": "CMON Games",
-      "playtime": "90",
-      "playercount": "4",
-      "image": "https://cf.geekdo-images.com/imagepage/img/evul1vzteA5QdbvAVeqaauIdziM=/fit-in/900x600/filters:no_upscale()/pic2617634.png"
-    },
-    {
-      "category": "Area Control",
-      "title": "Raiders of the North Sea",
-      "publisher": "CMON Games",
-      "playtime": "90",
-      "playercount": "4",
-      "image": "https://cf.geekdo-images.com/imagepage/img/JDWpDN9YS38DL9VQnND6tgsWnHk=/fit-in/900x600/filters:no_upscale()/pic3578101.jpg"
-    },
-    {
-      "category": ["Player Elimination"],
-      "title": "Coup",
-      "publisher": "Avalon Hill Games",
-      "playtime": "15",
-      "playercount": "6",
-      "image": "https://cf.geekdo-images.com/imagepagezoom/img/ZXaTzIdX60t6rsW80DL44ih76E8=/fit-in/1200x900/filters:no_upscale()/pic2016054.jpg"
-    },
-  ]
 
   PrivateLibraryView.propTypes = {
     classes: PropTypes.object.isRequired,

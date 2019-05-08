@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Link, Route,Switch} from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import LibraryIcon from '@material-ui/icons/LibraryBooks';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -27,11 +28,11 @@ import Register from './register';
 const styles = theme => ({
   about: {
     padding: 50
-},
-submitForms: {
-
-  float: 'left'
-},
+  },
+  submitForms: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
 })
 
 class AboutView extends Component {
@@ -46,18 +47,23 @@ class AboutView extends Component {
     const { classes } = this.props;
     return (
       <div>
-      <Paper className='about'>
-      <Typography variant='h4'>About Us</Typography>
-      <Typography variant='h5'>
-      The main idea behind the solution is to develop a website where customers can easily view available board games sold in-store, online and for rent. In addition, extra info on the board games may be provided and the system will have some user interaction/engagement where users may build their own private library of owned board games and share it with others. The system will serve as a platform to attract more customers to the physical store, and increase sales (both online and in-store).
-      </Typography>
-      </Paper>
-      <div className='submitForms'>
-      <SignIn/>
-      <Register/>
+        <Paper className='about'>
+        <Typography variant='h4'>About Us</Typography>
+        <Typography variant='h5'>
+        The main idea behind the solution is to develop a website where customers can easily view available board games sold in-store, online and for rent. In addition, extra info on the board games may be provided and the system will have some user interaction/engagement where users may build their own private library of owned board games and share it with others. The system will serve as a platform to attract more customers to the physical store, and increase sales (both online and in-store).
+        </Typography>
+        </Paper>
+        <Grid container justify="center"
+        alignItems="center" spacing={16}>
+        <Grid item >
+        {!localStorage.getItem('username') && <SignIn/>}
+        </Grid>
+        <Grid item>
+        {!localStorage.getItem('username') && <Register/>}
+        </Grid>
+        </Grid>
       </div>
-      </div>
-      )
+    )
   }
 }
 

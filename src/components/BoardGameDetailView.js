@@ -41,12 +41,12 @@ class BoardGameDetailView extends Component {
     return(
       <div>
       <Grid className={classes.gridItem}  item>
-        <Card id="libraryBoardGameCardID" className={classes.card} details={this.props.details}>
+        <Card id="libraryBoardGameCardID" className={classes.card} details={this.props.location.state.viewdetails}>
 
         <CardActionArea>
             <CardMedia
               className={classes.media}
-              image={this.props.details.photo_url}
+              image={this.details.photo_url}
               title="Game Thumbnail"/>
               <div className={classes.BoardGameCardDetailsDiv}>
               <div className={classes.DetailsList}>
