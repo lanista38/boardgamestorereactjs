@@ -71,16 +71,23 @@ this.setState({password: event.target.value})
 
 ////login/username/:username/password/:password
 onLoginClick = () => {
+  var redirect = <Redirect to="/home/"/>
   console.log(this.state.username);
   console.log("posting")
   fetch(APIauth + '/login/username/' + this.state.username + '/password/' + this.state.password)
   .then(response =>  response.json())
   .then(resdata => {this.setState({ loginres: resdata });
   console.log(this.state.loginres);
-  localStorage.removeItem("username");
+   localStorage.removeItem("username");
     localStorage.removeItem("authtoken");
-   localStorage.setItem("username", this.state.username);
-   localStorage.setItem("authtoken", this.state.loginres.token)
+    if(!this.state.loginres.token) {
+      alert( 'User Not Found!');
+    }
+    else {
+      localStorage.setItem("username", this.state.username);
+      localStorage.setItem("authtoken", this.state.loginres.token);
+    }
+
    //location.reload();
 
 })
@@ -108,10 +115,6 @@ onLoginClick = () => {
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input name="password" type="password" id="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} autoComplete="current-password" />
           </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
           type="submit"
             fullWidth
@@ -120,7 +123,8 @@ onLoginClick = () => {
             className={classes.submit}
             onClick={this.onLoginClick}
           >
-          <Redirect to="/home/"/>
+          {this.state.loginres.token && <Redirect to="/home/"/>}
+          <Redirect to="/about/"/>
             Sign in
           </Button>
         </form>

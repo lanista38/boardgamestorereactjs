@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
+import {BrowserRouter as Router, Redirect, Link, Route,Switch} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
+import Dialog from '@material-ui/core/Dialog';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -16,7 +25,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import {BrowserRouter as Router, Link, Route,Switch} from 'react-router-dom';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import BoardGameDetailView from './BoardGameDetailView';
 
 const styles = theme => ({
@@ -70,24 +81,26 @@ DetailsListItem:{
 },
 })
 
-const PostsData = [
-  {
-    "category": "Area Control",
-    "title": "Inis",
-    "publisher": "CMON Games",
-    "playtime": "90",
-    "playercount": "4",
-    "image": "https://cf.geekdo-images.com/imagepage/img/c6vFqiWZr3ix-2rMkUA0idcaOfk=/fit-in/900x600/filters:no_upscale()/pic3112623.jpg"
-  },
-]
+
 const API = 'http://localhost:4567/BGapi/apiV2';
 const APIauth = 'http://localhost:4567/BGapi/auth';
 
 class BoardGameCard extends Component {
   state = {
     showPurchasebutton: this.props.showbtn,
+    editopen: false,
+    publisheredit:'',
+    maxplayeredit: '',
+    playtimeedit:'',
+    descriptionedit:'',
+    playtime:this.props.details.play_time,
   };
   componentDidMount(){
+    this.setState({publisheredit: this.props.details.publisher})
+    this.setState({descriptionedit: this.props.details.description})
+    this.setState({playtimeedit: this.props.details.average_playtime})
+    this.setState({maxplayeredit: this.props.details.max_player})
+    this.setState({playtime:this.props.details.play_time})
     if(localStorage.getItem("username") == localStorage.getItem("sharedLibrary") && this.props.showPurchasebutton)
     {
       this.setState({showPurchasebutton: false});
@@ -97,6 +110,20 @@ class BoardGameCard extends Component {
       {this.setState({showPurchasebutton: true});}
 
   }
+  handledescriptionChange(event) {
+  this.setState({descriptionedit: event.target.value})
+  }
+  handlepublisherChange(event) {
+  this.setState({publisheredit: event.target.value})
+  }
+  handleplaytimeChange(event) {
+  this.setState({playtimeedit: event.target.value})
+  }
+  handlemaxplayerschange(event) {
+  this.setState({maxplayeredit: event.target.value})
+  }
+
+
   ///buyBoardGames/byusername/:username/boardgameid/:bg_id/quantity/:quantity
   onPurchaseClick = () => {
     console.log("buying")
@@ -107,6 +134,24 @@ class BoardGameCard extends Component {
     else {alert( 'No stock left in the system!');}
     this.forceUpdate()
   }
+  handleEditSave= () => {
+    console.log(this.props.details.bg_id)
+    //"/editBoardGames/boardgameid/:bg_id/desc/:desc/publisher/:publisher/avg_time/:avg_time/max_player/:max_player"
+      fetch(API + '/editBoardGames/boardgameid/' +  this.props.details.bg_id  + '/desc/' + this.state.descriptionedit +'/publisher/ '+ this.state.publisheredit
+      +'/avg_time/' + this.state.playtimeedit + '/max_player/' + this.state.maxplayeredit  , {method: 'POST'})
+      this.forceUpdate();
+      alert("Board Game Updated!")
+        this.setState({ editopen: false });
+  }
+
+  onEditClick= () => {
+    console.log("edit")
+    this.setState({ editopen: true });
+  }
+
+  handleClose = () => {
+  this.setState({ editopen: false });
+  };
 
   render() {
     const { classes } = this.props;
@@ -114,9 +159,7 @@ class BoardGameCard extends Component {
        <div>
               <Grid className={classes.gridItem}  item>
                 <Card id="libraryBoardGameCardID" className={classes.card} details={this.props.details}>
-                 <Link color="inherit"   to={{
-                                        pathname: "/details/",}}>
-                <CardActionArea>
+                <CardActionArea onClick={this.onEditClick}>
                     <CardMedia
                       className={classes.media}
                       image={this.props.details.photo_url}
@@ -135,7 +178,6 @@ class BoardGameCard extends Component {
                       <Typography className={classes.BoardGameCardDescription} variant="body2">{this.props.details.publisher}</Typography>
                     </div>
                     </CardActionArea>
-                    </Link>
                     <CardActions>
                       {this.state.showPurchasebutton  && <Button variant="contained" className={classes.purchaseButtonsize} size="small" onClick={this.onPurchaseClick}>
                         Purchase
@@ -144,6 +186,50 @@ class BoardGameCard extends Component {
 
                       <Typography align="right" variant="body2"> {this.props.details.quantity} in Stock</Typography>
                       </CardActions>
+                      <Dialog
+          fullScreen
+          open={this.state.editopen}
+          onClose={this.handleClose}
+          TransitionComponent={Transition}
+        >
+          <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+                <CloseIcon />
+              </IconButton>
+              <Typography variant="h6" color="inherit" className={classes.flex}>
+                  Edit for {this.props.details.title} Game
+              </Typography>
+              <Button color="inherit" onClick={this.handleEditSave}>
+
+                save
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <form className={classes.form}>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel >Description</InputLabel>
+            <Input name="description"  id="descriptionID"  />
+          </FormControl>
+
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel >Description</InputLabel>
+            <Input name="description"  id="descriptionID" value={this.state.descriptionedit} onChange={this.handledescriptionChange.bind(this)} />
+          </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel >Publisher</InputLabel>
+              <Input id="publishereditID" name="publisher"  value={this.state.publisheredit} onChange={this.handlepublisherChange.bind(this)}  />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel >Max Players</InputLabel>
+              <Input name="maxplayer"  id="maxplayerID" value={this.state.maxplayeredit} onChange={this.handlemaxplayerschange.bind(this)}  />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel >Play Time</InputLabel>
+              <Input name="playtime" id="playtimeID" value={this.state.playtimeedit} onChange={this.handleplaytimeChange.bind(this)}  />
+            </FormControl>
+            </form>
+        </Dialog>
                 </Card>
               </Grid>
 
@@ -152,6 +238,12 @@ class BoardGameCard extends Component {
   }
 }
 
+function redTouser() {
+  return <Redirect to="/user/"/>
+}
+function Transition(props) {
+return <Slide direction="up" {...props} />;
+}
 BoardGameCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };

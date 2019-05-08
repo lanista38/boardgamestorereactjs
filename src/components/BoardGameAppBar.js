@@ -74,6 +74,7 @@ componentWillMount(){
     localStorage.removeItem("username");
     localStorage.removeItem("authtoken");
     this.setState({showlogoutbtn: false})
+    console.log(localStorage.getItem("username"));
       //var logout chip =
   };
 
@@ -107,7 +108,7 @@ componentWillMount(){
            <LocationCity />
            </IconButton>  </Link>
 
-           {this.state.showlogoutbtn && <Button id="logoutBtnID" color="inherit" onClick={this.handleLogOut}><Redirect to="/about/"/>Sign Out</Button>}
+           {this.state.showlogoutbtn && <Button id="logoutBtnID" color="inherit" onClick={this.handleLogOut}> <Redirect to="/home/"/>Sign Out</Button>}
 
          </Toolbar>
        </AppBar>
@@ -115,7 +116,7 @@ componentWillMount(){
        <PrivateRoute path="/user/" component = {PrivateLibraryView}/>
        <PrivateRoute path="/details/" component = {BoardGameDetailView}/>
         <Route path="/sharedUser/" component = {sharedUserBoardGameLibrary}/>
-        <Route exact path="/about/" component = {AboutView}/>
+        <Route  path="/about/" component = {AboutView}/>
        </div>
    )
  }
@@ -130,12 +131,12 @@ return (
   <Route
     {...rest}
     render={props =>
-      localStorage.getItem("username") ? (
+      localStorage.getItem("authtoken") ? (
         <Component {...props} />
       ) : (
         <Redirect
           to={{
-            pathname: "/about",
+            pathname: "/about/",
             state: { from: props.location }
           }}
         />
