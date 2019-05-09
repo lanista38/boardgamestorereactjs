@@ -66,11 +66,12 @@ componentDidMount(){
   localStorage.removeItem("sharedLibrary")
   localStorage.setItem("sharedLibrary", localStorage.getItem("username"))
   navigator.clipboard.writeText(copyText).then(function() {
-    /* clipboard successfully set */
+    console.log( localStorage.getItem("sharedLibrary"))
+    alert( localStorage.getItem("username") + "'s Profile Successfully Copied!");
   }, function() {
     /* clipboard write failed */
   });
-  alert( localStorage.getItem("username") + "'s Profile Successfully Copied!");
+
   }
 
   handleChange = key => (event, value) => {

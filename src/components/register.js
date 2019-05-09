@@ -99,19 +99,19 @@ handlePasswordChange(event) {
         <form className={classes.form}>
         <FormControl margin="normal" required fullWidth>
           <InputLabel >Name</InputLabel>
-          <Input id="namereg" name="username"  value={this.state.name} onChange={this.handleNameChange.bind(this)} autoFocus />
+          <Input id="namereg" name="username"  value={this.state.name} onChange={this.handleNameChange.bind(this)}  />
         </FormControl>
         <FormControl margin="normal" required fullWidth>
           <InputLabel >Username</InputLabel>
-          <Input id="usernamereg" name="username"  value={this.state.username} onChange={this.handleUsernameChange.bind(this)} autoFocus />
+          <Input id="usernamereg" name="username"  value={this.state.username} onChange={this.handleUsernameChange.bind(this)}  />
         </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="emailreg" name="email" autoComplete="email" value={this.state.email} onChange={this.handleEmailChange.bind(this)} autoFocus />
+            <Input id="emailreg" name="email" autoComplete="email" value={this.state.email} onChange={this.handleEmailChange.bind(this)}  />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="password">Password</InputLabel>
-            <Input name="password" type="password" id="passwordreg" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} autoComplete="current-password" />
+            <Input name="password" type="password" id="passwordreg" value={this.state.password} onChange={this.handlePasswordChange.bind(this)}  />
           </FormControl>
           <Button
 
@@ -121,7 +121,7 @@ handlePasswordChange(event) {
             className={classes.submit}
             onClick={this.onRegisterClick}
           >
-        
+
             Register
           </Button>
         </form>

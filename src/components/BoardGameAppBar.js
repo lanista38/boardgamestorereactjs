@@ -108,15 +108,17 @@ componentWillMount(){
            <LocationCity />
            </IconButton>  </Link>
 
-           {this.state.showlogoutbtn && <Button id="logoutBtnID" color="inherit" onClick={this.handleLogOut}> <Redirect to="/home/"/>Sign Out</Button>}
+           {this.state.showlogoutbtn && <Button id="logoutBtnID" color="inherit" onClick={this.handleLogOut}> Sign Out</Button>}
 
          </Toolbar>
        </AppBar>
-       <PrivateRoute  path="/home/" component = {LibraryView}/>
+       <Switch>
+       <PrivateRoute  exact path="/home/" component = {LibraryView}/>
        <PrivateRoute path="/user/" component = {PrivateLibraryView}/>
        <PrivateRoute path="/details/" component = {BoardGameDetailView}/>
         <Route path="/sharedUser/" component = {sharedUserBoardGameLibrary}/>
         <Route  path="/about/" component = {AboutView}/>
+        </Switch>
        </div>
    )
  }

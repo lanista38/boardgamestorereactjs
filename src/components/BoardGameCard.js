@@ -88,12 +88,13 @@ const APIauth = 'http://localhost:4567/BGapi/auth';
 class BoardGameCard extends Component {
   state = {
     showPurchasebutton: this.props.showbtn,
+    freshdetails: this.props.details,
     editopen: false,
     publisheredit:'',
     maxplayeredit: '',
     playtimeedit:'',
     descriptionedit:'',
-    playtime:this.props.details.play_time,
+    playtime:'',
   };
   componentDidMount(){
     this.setState({publisheredit: this.props.details.publisher})
@@ -132,16 +133,17 @@ class BoardGameCard extends Component {
     this.setState({ showPurchasebutton: false  });
     alert( 'Game Successfully Purchased!');}
     else {alert( 'No stock left in the system!');}
-    this.forceUpdate()
+    document.location.reload()
   }
   handleEditSave= () => {
     console.log(this.props.details.bg_id)
     //"/editBoardGames/boardgameid/:bg_id/desc/:desc/publisher/:publisher/avg_time/:avg_time/max_player/:max_player"
       fetch(API + '/editBoardGames/boardgameid/' +  this.props.details.bg_id  + '/desc/' + this.state.descriptionedit +'/publisher/ '+ this.state.publisheredit
       +'/avg_time/' + this.state.playtimeedit + '/max_player/' + this.state.maxplayeredit  , {method: 'POST'})
-      this.forceUpdate();
+
       alert("Board Game Updated!")
         this.setState({ editopen: false });
+        document.location.reload()
   }
 
   onEditClick= () => {
@@ -150,6 +152,7 @@ class BoardGameCard extends Component {
   }
 
   handleClose = () => {
+    this.forceUpdate();
   this.setState({ editopen: false });
   };
 
@@ -195,13 +198,14 @@ class BoardGameCard extends Component {
           <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+
                 <CloseIcon />
               </IconButton>
               <Typography variant="h6" color="inherit" className={classes.flex}>
                   Edit for {this.props.details.title} Game
               </Typography>
               <Button color="inherit" onClick={this.handleEditSave}>
-
+        
                 save
               </Button>
             </Toolbar>

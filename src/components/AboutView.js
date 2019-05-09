@@ -26,8 +26,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import SignIn from './SignIn';
 import Register from './register';
 const styles = theme => ({
-  about: {
-    padding: 50
+  paperabout: {
+    padding: 30,
+    margin:40,
+    marginBottom:10
+
   },
   submitForms: {
     display: 'flex',
@@ -47,7 +50,7 @@ class AboutView extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Paper className='about'>
+        <Paper  id='Aboutinfo'className={classes.paperabout} >
         <Typography variant='h4'>About Us</Typography>
         <Typography variant='h5'>
         The main idea behind the solution is to develop a website where customers can easily view available board games sold in-store, online and for rent. In addition, extra info on the board games may be provided and the system will have some user interaction/engagement where users may build their own private library of owned board games and share it with others. The system will serve as a platform to attract more customers to the physical store, and increase sales (both online and in-store).
@@ -67,4 +70,4 @@ class AboutView extends Component {
   }
 }
 
-export default AboutView
+export default withStyles(styles)(AboutView)

@@ -109,15 +109,16 @@ onLoginClick = () => {
         <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
             <InputLabel >Username</InputLabel>
-            <Input id="username" name="username"  value={this.state.username} onChange={this.handleUsernameChange.bind(this)} autoFocus />
+            <Input id="usernameID" name="username"  value={this.state.username} onChange={this.handleUsernameChange.bind(this)}  />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="password">Password</InputLabel>
-            <Input name="password" type="password" id="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} autoComplete="current-password" />
+            <Input name="password" type="password" id="passwordID" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} />
           </FormControl>
           <Button
           type="submit"
             fullWidth
+            id="submitLoginButtonID"
             variant="contained"
             color="primary"
             className={classes.submit}
