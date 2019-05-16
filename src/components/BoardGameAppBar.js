@@ -23,7 +23,7 @@ import BoardGameFilter from './BoardGameFilter';
 import AboutView from './AboutView';
 import sharedUserBoardGameLibrary from './sharedUserBoardGameLibrary';
 import Avatar from '@material-ui/core/Avatar';
-
+import logo from '../dragon-head.svg';
 
 
 const styles = theme => ({
@@ -31,7 +31,11 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: '#ff8f00',
   },
-
+  logo:{
+    paddingLeft: 20,
+    maxHeight: 50,
+    maxWidth: 50
+  },
   grow: {
   flexGrow: 1,
 },
@@ -88,7 +92,7 @@ componentWillMount(){
        <AppBar className={classes.PrimaryColor} position="static">
          <Toolbar>
            <IconButton className={classes.menuButton} color="inherit"  aria-label="Menu">
-             <MenuIcon />
+             <img className={classes.logo} src={logo} />
            </IconButton>
 
            <Typography variant="h6"  className={classes.grow}>

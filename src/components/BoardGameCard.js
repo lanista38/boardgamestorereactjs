@@ -42,7 +42,8 @@ const styles = theme => ({
     padding: 40
   },
   purchaseButtonsize:{
-    backgroundColor: '#f44331'
+    backgroundColor: '#f44331',
+    color: 'white',
   },
   control: {
     padding: theme.spacing.unit * 2,
@@ -57,8 +58,8 @@ const styles = theme => ({
   overviewcard: {
    minWidth: 250,
    maxWidth: 220,
-   minHeight: 220,
-   maxHeight:300,
+   minHeight: 290,
+   maxHeight: 300,
    BackgroundColor: '#ff6659'
  },
  detailcard:{
@@ -84,6 +85,7 @@ catChip:{
 },
 DetailsList:{
  display: 'flex',
+ paddingTop: 10,
 
 },
 DetailsListItem:{
