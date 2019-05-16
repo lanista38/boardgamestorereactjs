@@ -88,6 +88,7 @@ class LibraryView extends Component {
                    data={this.state.allbg}
                    options={this.options}
                    onParseOk={this.onParseOk.bind(this)}
+                   id="boardgameFilterID"
                     />
           </Paper>
         <Grid container className={classes.gridContainer} spacing={16}>

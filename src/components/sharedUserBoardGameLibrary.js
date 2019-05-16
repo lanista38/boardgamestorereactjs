@@ -18,6 +18,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import BoardGameCard from './BoardGameCard';
 import BoardGameAppBar from './BoardGameAppBar';
+import PrivateBoardGameCard from './privateBoardGameCard';
 
 const API = 'http://localhost:4567//BGapi/apiV2';
 
@@ -28,7 +29,7 @@ const styles = theme => ({
     maxWidth: 500,
     minWidth: 200,
     minHeight: 300,
-    backgroundColor: '#ff8f00',
+    backgroundColor: '#e53935',
   },
   gridContainer:{
 
@@ -88,10 +89,9 @@ navigator.clipboard.writeText(copyText).then(function() {
           <Grid  container direction="row" justify="flex-start" spacing={24}>
             <Grid item  xs ={4} >
               <Paper className={classes.userdetailsContainer} >
-                <Avatar alt="Remy Sharp" src="https://www.w3schools.com/w3images/avatar2.png" className={classes.bigAvatar} />
-                <Typography variant="h6" className={classes.userdetailsText}> Welcome to {localStorage.getItem("sharedLibrary")}'s Library! </Typography>
-                <Typography id="stockTextID" variant="h6" className={classes.userdetailsText}>  {this.state.bglibrary.length} titles in library </Typography>
-                <Button variant="contained" color="primary" className={classes.button}> Share Library! </Button>
+                <Typography variant="h6" style={{  color: 'white' }} className={classes.userdetailsText}> You are in <span style={{  color: '#34515e' }}>{localStorage.getItem("sharedLibrary")}'s </span> Shared Library! </Typography>
+                <Typography style={{  color: 'white' }} id="stockTextID" variant="h6" className={classes.userdetailsText}>  {this.state.bglibrary.length} titles in library </Typography>
+                <Button  style={{  color: 'white' }}variant="contained" color="primary" className={classes.button}> Share Library! </Button>
               </Paper>
             </Grid>
               <Grid item   xs ={8}  >
@@ -101,7 +101,7 @@ navigator.clipboard.writeText(copyText).then(function() {
                     Object
                     .keys(this.state.bglibrary)
                     .map(key => (
-                      <BoardGameCard   id="libraryBoardGameCardID" key={key} index={key}  details={this.state.bglibrary[key]}/>
+                      <PrivateBoardGameCard   id="libraryBoardGameCardID" key={key} index={key}  details={this.state.bglibrary[key]}/>
                     ))}
 
                 </Grid>

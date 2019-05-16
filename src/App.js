@@ -15,7 +15,7 @@ import SimpleStorage from "react-simple-storage";
 const styles = theme => ({
   root: {
     flexGrow: 1,
-
+    backgroundColor: "#34515e"
   },
 
   gridContainer: {

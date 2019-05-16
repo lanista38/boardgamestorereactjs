@@ -22,7 +22,7 @@ import PrivateLibraryView from './PrivateLibraryView';
 import BoardGameFilter from './BoardGameFilter';
 import AboutView from './AboutView';
 import sharedUserBoardGameLibrary from './sharedUserBoardGameLibrary';
-
+import Avatar from '@material-ui/core/Avatar';
 
 
 
@@ -36,7 +36,7 @@ const styles = theme => ({
   flexGrow: 1,
 },
   PrimaryColor:{
-    backgroundColor: '#c56000'
+    backgroundColor: '#f44336'
   },
   menuButton: {
   marginLeft: -12,
@@ -92,21 +92,21 @@ componentWillMount(){
            </IconButton>
 
            <Typography variant="h6"  className={classes.grow}>
-           <Link id="siteTitleID" to="/home/">   The Gaming Pit</Link>
+           <Link id="siteTitleID" style={{ textDecoration: 'none',  color: 'white'  }} to="/home/">   The Gaming Pit</Link>
            </Typography>
 
-           <Link color="inherit" to="/user/">
-
-           <IconButton id="privateLibraryButtonID" color="inherit"  aria-label="Account">
-           <LibraryIcon />
-           </IconButton>  </Link>
-
-           <Link color="inherit" to="/about/">
-
+           <Link style={{ textDecoration: 'none',  color: 'white'  }} to="/about/">
            <IconButton id="aboutButtonID" color="inherit"  aria-label="location_city">
-
            <LocationCity />
-           </IconButton>  </Link>
+           </IconButton>
+           </Link>
+
+           {this.state.showlogoutbtn && <Avatar alt="Remy Sharp" src="https://www.w3schools.com/w3images/avatar2.png" className={classes.bigAvatar} />}
+           {this.state.showlogoutbtn && <Link style={{ textDecoration: 'none', color: 'white' }}  to="/user/">
+           <Button style={{  color: 'white' }}>   {localStorage.getItem("username")}</Button>
+           </Link> }
+
+
 
            {this.state.showlogoutbtn && <Button id="logoutBtnID" color="inherit" onClick={this.handleLogOut}> Sign Out</Button>}
 
@@ -133,7 +133,7 @@ return (
   <Route
     {...rest}
     render={props =>
-      localStorage.getItem("authtoken") ? (
+      localStorage.getItem("username") ? (
         <Component {...props} />
       ) : (
         <Redirect

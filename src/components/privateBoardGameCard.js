@@ -54,6 +54,9 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20,
   },
+  appBar:{
+    backgroundColor: '#ab000e'
+  },
   overviewcard: {
    minWidth: 250,
    maxWidth: 220,
@@ -95,7 +98,7 @@ DetailsListItem:{
 const API = 'http://localhost:4567/BGapi/apiV2';
 const APIauth = 'http://localhost:4567/BGapi/auth';
 
-class BoardGameCard extends Component {
+class privateBoardGameCard extends Component {
   state = {
     showPurchasebutton: this.props.showbtn,
     freshdetails: this.props.details,
@@ -165,6 +168,7 @@ class BoardGameCard extends Component {
     this.forceUpdate();
   this.setState({ detailopen: false });
   };
+
   onEditClick= () => {
     console.log("edit")
     this.setState({ editopen: true });
@@ -180,8 +184,8 @@ class BoardGameCard extends Component {
     return(
        <div>
               <Grid className={classes.gridItem}  item>
-                <Card id="libraryBoardGameCardID" className={classes.overviewcard} details={this.props.details}>
-                <CardActionArea onClick={this.onDetailClick}>
+              <Card id="libraryBoardGameCardID" className={classes.overviewcard} details={this.props.details}>
+              <CardActionArea onClick={this.onDetailClick}>
                     <CardMedia
                       className={classes.media}
                       image={this.props.details.photo_url}
@@ -197,17 +201,11 @@ class BoardGameCard extends Component {
                       </div>
                     <div className={classes.BoardGameCardTextDiv}>
                       <Typography className={classes.BoardGameCardTitle} id="boardgametitleID"variant="h6">{this.props.details.title}</Typography>
-                      <Typography className={classes.BoardGameCardPublisher} variant="body2">{this.props.details.publisher}</Typography>
-
+                      <Typography className={classes.BoardGameCardDescription} variant="body2">{this.props.details.publisher}</Typography>
                     </div>
                     </CardActionArea>
                     <CardActions>
-                      {this.state.showPurchasebutton  && <Button variant="contained" className={classes.purchaseButtonsize} size="small" onClick={this.onPurchaseClick}>
-                        Purchase
-                        </Button>
-                      }
-
-                      <Typography align="right" variant="body2"> {this.props.details.quantity} in Stock</Typography>
+                      {this.state.showPurchasebutton  && <Button variant="contained" className={classes.purchaseButtonsize} size="small" onClick={this.onPurchaseClick}>Purchase </Button> }
                       </CardActions>
                       <Dialog
           open={this.state.detailopen}
@@ -253,8 +251,7 @@ class BoardGameCard extends Component {
           fullScreen
           open={this.state.editopen}
           onClose={this.handleClose}
-          TransitionComponent={Transition}
-        >
+          TransitionComponent={Transition}>
           <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
@@ -265,7 +262,6 @@ class BoardGameCard extends Component {
                   Edit for {this.props.details.title} Game
               </Typography>
               <Button color="inherit" onClick={this.handleEditSave}>
-
                 save
               </Button>
             </Toolbar>
@@ -308,11 +304,11 @@ function redTouser() {
 function Transition(props) {
 return <Slide direction="up" {...props} />;
 }
-BoardGameCard.propTypes = {
+privateBoardGameCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 //     <Route  to={{pathname: '/details',
 //     state: { viewdetails: this.props.details }
 // }} component = {BoardGameDetailView}/>
 
-export default withStyles(styles)( BoardGameCard);
+export default withStyles(styles)( privateBoardGameCard);
